@@ -31,17 +31,16 @@ def resquest():
 def simplesearch():
     return render_template('simplesearch.html')
 
-
-@app.route('/searchspeed', methods=['GET', 'POST'])
-def searchspeed():
-    return render_template('searchspeed.html')
-
-
 @app.route('/result', methods=['POST'])
 def resultsimple():
     result = request.form
     data = choosequery(result)
     return render_template('result.html', data=data)
+
+
+@app.route('/searchconsumption')
+def searchconsumption():
+    return render_template('searchconsumption.html')
 
 @app.route('/resultconsumption', methods=['POST'])
 def resultconsumption():
@@ -55,6 +54,26 @@ def resultconsumption():
     data = cursor.fetchall()
 
     return render_template('result.html', data=data)
+
+
+@app.route('/searchspeed', methods=['GET', 'POST'])
+def searchspeed():
+    return render_template('searchspeed.html')
+
+@app.route('/resultspeed', methods=['POST'])
+def resultspeed():
+    result = request.form
+    value1=result['val1']
+    value2=result['val2']
+    mydb = mysql.connector.connect(user='root', password='esilvs6', database='voituredb')
+    cursor = mydb.cursor()
+    query = ('SELECT id, mark, model, maxspeed, consumption FROM voiture WHERE maxspeed between '+value1+' and '+value2)
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    return render_template('result.html', data=data)
+
+
 
 def choosequery(result):
     id = result['id']
@@ -88,9 +107,10 @@ def choosequery(result):
 
     return data
 
-@app.route('/searchconsumption')
-def searchconsumption():
-    return render_template('searchconsumption.html')
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
