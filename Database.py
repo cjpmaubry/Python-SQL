@@ -38,11 +38,23 @@ def searchspeed():
 
 
 @app.route('/result', methods=['POST'])
-def result():
-    result=request.form
+def resultsimple():
+    result = request.form
     data = choosequery(result)
     return render_template('result.html', data=data)
 
+@app.route('/resultconsumption', methods=['POST'])
+def resultconsumption():
+    result = request.form
+    value1=result['val1']
+    value2=result['val2']
+    mydb = mysql.connector.connect(user='root', password='esilvs6', database='voituredb')
+    cursor = mydb.cursor()
+    query = ('SELECT id, mark, model, maxspeed, consumption FROM voiture WHERE consumption between '+value1+' and '+value2)
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    return render_template('result.html', data=data)
 
 def choosequery(result):
     id = result['id']
