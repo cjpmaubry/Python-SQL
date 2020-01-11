@@ -28,6 +28,18 @@ def display():
 def resquest():
     return render_template('request.html')
 
+@app.route('/simplesearch')
+def simplesearch():
+    return render_template('simplesearch.html')
+
+@app.route('/searchspeed')
+def searchspeed():
+    return render_template('searchspeed.html')
+
+@app.route('/searchconsumption')
+def searchconsumption():
+    return render_template('searchspeed.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
 
