@@ -5,6 +5,7 @@ Menu selection with three choices :
 * basic search
 * speed search (search car between min and max speed)
 * consumption search (search car between min and max consumption)
+
 IDE : PyCharm
 
 MySQL : Database name voituredb with one table name voiture
