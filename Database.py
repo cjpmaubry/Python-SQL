@@ -70,11 +70,14 @@ def resultspeed():
     query = ('SELECT id, mark, model, maxspeed, consumption FROM voiture WHERE maxspeed between '+value1+' and '+value2)
     cursor.execute(query)
     data = cursor.fetchall()
+    cursor.close()
+    mydb.close()
 
     return render_template('result.html', data=data)
 
 
-
+# This method adapts the research setting given by the user in order to make the query
+# Return a cursor in which is store all the result of the query
 def choosequery(result):
     id = result['id']
     mark = result['mark']
@@ -104,6 +107,8 @@ def choosequery(result):
     query = ('SELECT id, mark, model, maxspeed, consumption FROM voiture '+info)
     cursor.execute(query)
     data = cursor.fetchall()
+    cursor.close()
+    mydb.close()
 
     return data
 
@@ -113,6 +118,6 @@ def choosequery(result):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
 
 
